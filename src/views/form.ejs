@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%= title %></title>
+</head>
+<body style=<%='background-color:' + (locals.color ? locals.color : null) %>>
+    <% if (locals.usuario) { %>
+        <div class="sucess_data">
+            <p><%= locals.color %> </p>
+            <h1>Hola <%= locals.usuario.name %> </h1>
+            <p>Elegiste el color <%= locals.color %> </p>
+            <p>Tu email es: <%= locals.usuario.email %> </p>
+            <p>Tu edad es: <%= locals.usuario.age %> </p>
+            <a href='/borrarPreferencia'>¿Borrar fondo?</a>  
+            <a href="/thanks">Gracias!</a>
+        </div>
+    <% } else { %>
+        <form action="/form" method="POST">
+            <label>Ingrese su nombre</label>
+            <input type="text" name="name" value= "<%= locals.old && locals.old.name ? old.name : null%>">
+            <p style="color:red;">
+                <%= locals.errors && locals.errors.name ? errors.name.msg : null %>
+            </p>
+
+            <!-- ------------------------------------------------ -->
+
+            <label>Colores</label>
+            <select name="color" id="">
+                <option value="">Elige un color</option>
+                <option value="red">Rojo</option>
+                <option value="green">Verde</option>
+                <option value="blue">Azul</option>
+            </select>
+            <p style="color:red;">
+                <%= locals.errors && locals.errors.color ? errors.color.msg : null %>
+            </p>
+            <p><input type="checkbox" name="recordar">Recordar?</p>
+            <p><input type="checkbox" name="olvidar">Olvidar color</p>
+
+            <!-- ------------------------------------------------ -->
+
+
+            <!-- ------------------------------------------------ -->
+
+            <label>Ingrese su mail</label>
+            <input type="email" name="email" value= "<%= locals.old && locals.old.email ? old.email : null%>">
+            <p style="color:red;">
+                <%= locals.errors && locals.errors.email ? errors.email.msg : null %>
+            </p>
+
+            <!-- ------------------------------------------------ -->
+
+            <label>Ingrese su edad</label>
+            <input type="number" name="age" value= "<%= locals.old && locals.old.age ? old.age : null%>">
+            <p style="color:red;">
+                <%= locals.errors && locals.errors.age ? errors.age.msg : null %>
+            </p>
+
+            <!-- ------------------------------------------------ -->
+
+            <button type="submit">Enviar</button>
+        </form>
+    <% } %>
+</body>
+</html>
